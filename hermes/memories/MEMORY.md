@@ -1,1 +1,1 @@
-
+h-dashboard project: branch=sadaf, origin=hailyn3/h-dashboard.git, upstream=asgarimehdi/h-dashboard.git. MCP tools: Laravel Boost ✅, Context7 ✅, GitHub MCP ✅, CodeGraph CLI v1.6.0 ✅ (indexed 524 files). read-the-damn-docs skill installed. improve skill (shadcn/improve) available. gh CLI authenticated as hailyn3. User requests PR to upstream/beta when they say "pr".
