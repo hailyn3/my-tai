@@ -60,6 +60,21 @@ git config user.name "username"
 
 Detect from `gh auth status` or set manually.
 
+### Fetching an upstream branch without touching remotes
+
+To compare or sync a branch from another repository when the local remote
+configuration is owned by tooling (or must stay unchanged), fetch by URL into
+a temporary ref instead of adding a remote:
+
+```bash
+git fetch <url> <branch>:refs/tmp/<branch>
+git merge-base --is-ancestor refs/tmp/<branch> <local-branch> && echo in-sync
+git update-ref -d refs/tmp/<branch>   # clean up when done
+```
+
+Temporary refs are not part of `git remote` config, so nothing about the
+repository's remote setup changes.
+
 ## Verification
 
 - `git status` shows no unexpected submodule entries.
