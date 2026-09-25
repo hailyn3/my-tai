@@ -20,6 +20,10 @@ Pitfalls and procedures for everyday git operations that fall outside standard
 - Always check `git status` and `git remote -v` before staging or pushing.
 - Configure per-repo identity before first commit if global config is absent.
 - Never assume a branch name — read it from `git branch --show-current`.
+- Ahead/behind counts in `git status -sb` are measured against the *configured*
+  upstream, which may be a different branch than the one you push to. When the
+  tracking ref looks wrong, compare explicitly:
+  `git rev-list --left-right --count <branch>...origin/<branch>`.
 
 ## Pitfalls
 
@@ -74,6 +78,29 @@ git update-ref -d refs/tmp/<branch>   # clean up when done
 
 Temporary refs are not part of `git remote` config, so nothing about the
 repository's remote setup changes.
+
+### Catching up a branch that is behind its remote counterpart
+
+Pushes get rejected with `tip of your current branch is behind its remote
+counterpart`. Sync with a fast-forward, never `git pull` — a pull can create an
+unnecessary merge commit and drags remote changes into your history silently.
+
+```bash
+git fetch origin --prune
+git rev-list --left-right --count <branch>...origin/<branch>  # 0 <n> => behind only
+git stash push -u -m wip -- <dirty files>   # only if the tree is dirty
+git merge --ff-only origin/<branch>
+git stash pop
+git push origin <branch>
+```
+
+- Stash first: `--ff-only` refuses to overwrite locally modified files, so the
+  dirty tree must be out of the way before the checkout.
+- `0 <n>` (no commits of your own) means a clean fast-forward is possible;
+  anything on the left side means real divergence — stop and ask rather than
+  rebasing/merging unprompted.
+- Confirm the result against the ref you actually push to (`origin/<same-name>`),
+  not the tracking upstream, before declaring the branch synced.
 
 ## Verification
 

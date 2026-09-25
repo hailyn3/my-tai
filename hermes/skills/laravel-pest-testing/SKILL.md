@@ -52,6 +52,14 @@ Signature → root-cause table: `references/failure-signatures.md`.
 
 ## Pitfalls
 
+- **A connection error from a few tests while the rest of the suite
+  connected is transient infra, not config.** `database "x" does not
+  exist` / `connection refused` raised by a handful of tests when
+  hundreds on the same connection succeeded means a blip in the DB
+  process — re-run just those files first, then the full suite; a green
+  re-run settles it. A real config fault fails every test on that
+  connection, so never reach for `phpunit.xml`/`.env` edits on partial
+  connection failures.
 - **Postgres sequences do not roll back** with RefreshDatabase's per-test
   transactions: rows revert, `nextval` does not — factory-seeded lookups
   drift past hardcoded ids and FK violations then name whatever table is
