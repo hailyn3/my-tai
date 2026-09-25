@@ -49,6 +49,23 @@ Signature → root-cause table: `references/failure-signatures.md`.
    only admits writers of the BASE repo. No rights → deliver via your own
    fork branch (their commits + your fixes, PR crediting the author) or a
    comment with cherry-pick instructions; confirm the route with the user.
+6. **Running the suite against another ref (a PR head) without leaving
+   your branch** — use a scratch worktree, never a checkout:
+
+   ```bash
+   git fetch <hosting-remote> pull/<N>/head:<tmp-branch>
+   git worktree add --detach <scratch-dir> <tmp-branch>
+   cd <scratch-dir>
+   composer install          # real install, seconds on a warm cache — see pitfall
+   cp <main-checkout>/.env .env
+   cp -r <main-checkout>/public/build public/build   # if page-render tests exist
+   php artisan config:clear && php artisan route:clear
+   composer test && vendor/bin/pint --test && vendor/bin/phpstan analyse --no-progress
+   cd <main-checkout> && git worktree remove --force <scratch-dir>
+   ```
+
+   The worktree keeps your working branch and index untouched while the
+   tested ref gets its own autoload map and cache files.
 
 ## Pitfalls
 
@@ -85,6 +102,16 @@ Signature → root-cause table: `references/failure-signatures.md`.
 - **Assert against data the factory randomizes** (names, coordinates,
   addresses): capture the model you just created and assert its real
   attribute; literals copied from a seed table will flake.
+- **Symlinking the main checkout's `vendor/` into a worktree breaks class
+  loading**: Composer's generated `vendor/composer/autoload_*.php` derives
+  `$baseDir` from where `vendor/` physically lives, so every class resolves
+  back to the MAIN checkout — files that exist only on the tested ref fail
+  with `Target class X does not exist` even though they are on disk. Run a
+  real `composer install` inside the worktree.
+- **Page-render tests in a fresh worktree die with `Vite manifest not
+  found`** — the built assets are an untracked artifact, not source: copy
+  `public/build/` from the main checkout (or build there) instead of
+  touching test assertions.
 - **Spatial/bbox queries over randomized coordinates**: factory lat/lng
   lands outside the fixed query window and returns "count 0" — pin the
   coordinates inside the window in the test helper at creation time.
