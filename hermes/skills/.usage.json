@@ -161,14 +161,14 @@
     "first_seen_at": null,
     "last_patched_at": "2026-09-25T19:01:14.116399+00:00",
     "last_reused_patch_generation": 5,
-    "last_used_at": "2026-09-25T20:27:08.430534+00:00",
-    "last_viewed_at": "2026-09-25T20:27:08.429351+00:00",
+    "last_used_at": "2026-09-26T20:52:42.989650+00:00",
+    "last_viewed_at": "2026-09-26T20:52:42.976611+00:00",
     "patch_count": 5,
     "patch_generation": 5,
     "pinned": false,
     "state": "active",
-    "use_count": 12,
-    "view_count": 12
+    "use_count": 13,
+    "view_count": 13
   },
   "mcp-tooling": {
     "archived_at": null,
