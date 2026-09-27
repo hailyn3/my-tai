@@ -1,7 +1,1 @@
-CodeGraph CLI v1.6.0 ✅ (532 files indexed; binary+index can vanish between sessions — restore: `npm i -g @colbymchenry/codegraph` then `cd h-dashboard && codegraph init`)
-§
-h-dashboard standing rules (user 2026-09-23): every change must be committed AND pushed to the current branch on its remote before moving on. When user says "pr": open PR to canonical beta https://github.com/asgarimehdi/h-dashboard/tree/beta (via GitHub MCP). shadcn/improve skill: load only, do NOT execute until user explicitly asks. codegraph MCP needs binary at /home/runner/.npm-global/bin/codegraph (pkg @colbymchenry/codegraph); if 'command not found' or MCP 'Connection closed', reinstall: npm i -g @colbymchenry/codegraph.
-§
-GitHub MCP writes failed "Requires authentication" (2026-09-25) — token was passed as unexpanded `${GH_TOKEN}` in args. Fixed for real this time: re-added server with literal env value via `printf 'y\ny\n' | hermes mcp add github --command npx --env "GITHUB_PERSONAL_ACCESS_TOKEN=$GH_TOKEN" --args -y @modelcontextprotocol/server-github` (hermes mcp add on an existing server asks 2 prompts: overwrite + enable tools) — takes effect next session. gh CLI (hailyn3) works meanwhile: used `gh pr comment` successfully.
-§
-Security approval prompts: chained risky terminal commands (git commit+push+pr) go to a user approval prompt that times out after ~5 min with "command did not run" — silence is not consent. Announce the prompt before launching it, or split the steps; on timeout report the ready-state (staged files, gates run) and wait for the user.
+
