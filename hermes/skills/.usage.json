@@ -82,16 +82,16 @@
     "archived_at": null,
     "created_at": "2026-09-07T16:26:37.132874+00:00",
     "created_by": null,
-    "last_patched_at": null,
-    "last_reused_patch_generation": 0,
-    "last_used_at": "2026-09-23T21:21:47.730361+00:00",
-    "last_viewed_at": "2026-09-23T21:21:47.729303+00:00",
-    "patch_count": 0,
-    "patch_generation": 0,
+    "last_patched_at": "2026-09-28T18:03:06.383033+00:00",
+    "last_reused_patch_generation": 3,
+    "last_used_at": "2026-09-28T21:46:05.250426+00:00",
+    "last_viewed_at": "2026-09-28T21:46:05.249260+00:00",
+    "patch_count": 3,
+    "patch_generation": 3,
     "pinned": false,
     "state": "active",
-    "use_count": 26,
-    "view_count": 26
+    "use_count": 31,
+    "view_count": 29
   },
   "hermes-agent": {
     "archived_at": null,
@@ -129,14 +129,14 @@
     "created_by": null,
     "last_patched_at": null,
     "last_reused_patch_generation": 0,
-    "last_used_at": "2026-09-28T00:12:21.468592+00:00",
-    "last_viewed_at": "2026-09-28T00:12:21.467621+00:00",
+    "last_used_at": "2026-09-28T16:18:37.047292+00:00",
+    "last_viewed_at": "2026-09-28T16:18:37.046184+00:00",
     "patch_count": 0,
     "patch_generation": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 10,
-    "view_count": 10
+    "use_count": 11,
+    "view_count": 11
   },
   "improve-workflows": {
     "archived_at": null,
@@ -248,6 +248,22 @@
     "state": "active",
     "use_count": 3,
     "view_count": 3
+  },
+  "superpowers:brainstorming": {
+    "archived_at": null,
+    "created_at": "2026-09-28T17:27:37.410868+00:00",
+    "created_by": null,
+    "first_seen_at": null,
+    "last_patched_at": null,
+    "last_reused_patch_generation": 0,
+    "last_used_at": "2026-09-28T17:27:37.412202+00:00",
+    "last_viewed_at": "2026-09-28T17:27:37.410885+00:00",
+    "patch_count": 0,
+    "patch_generation": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 1,
+    "view_count": 1
   },
   "systematic-debugging": {
     "archived_at": null,

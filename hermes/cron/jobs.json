@@ -1,4 +1,111 @@
 {
-  "jobs": [],
-  "updated_at": "2026-09-22T00:54:41.127529+00:00"
+  "jobs": [
+    {
+      "id": "1f52a75900d8",
+      "name": "نظر در discussions/730 — مرحله ۱",
+      "prompt": "Task: post my own opinion as a new comment on GitHub discussion #730 of repo `asgarimehdi/h-dashboard` (https://github.com/asgarimehdi/h-dashboard/discussions/730). No user approval is needed — publish directly, then report.\n\nSteps:\n1. Load the skill with skill_view(name=\"github\") and read its linked file references/discussions.md — it has the exact GraphQL commands, IDs, and known pitfalls for creating discussion comments.\n2. Read the discussion (number 730) and find the LATEST published comment by creation order — that is the comment you must react to. Do NOT confuse it with the discussion body itself.\n3. Write a substantive opinion about that specific comment: agree/disagree, what it missed, one concrete suggestion, grounded in what the comment actually says. 3-6 sentences minimum, no filler. Match the comment's language: Persian comment → Persian reply, English comment → English reply. Start the comment with a short signature line \"— نظر صدف (دستیار)\".\n4. Post it in the SAME discussion using mutation `addDiscussionComment` (NOT createDiscussionComment — that name does not exist) with the discussion global ID from `discussion { id }`. Write the body to a file under /home/runner/.hermes/cache/scratch/ and pass it as `-F body=@/path/file.md` to avoid shell quoting problems. Auth: `gh` CLI is already logged in as `hailyn3` with `write:discussion` scope.\n5. Verify with a fresh read: comment count on #730 must have increased and your text must be the last comment. Never claim success without this read.\n\nFinal response: the comment URL, who the reacting comment was by (login + first line), and a 1-2 line summary of your opinion.",
+      "skills": [
+        "github"
+      ],
+      "skill": "github",
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "once",
+        "run_at": "2026-09-28T21:35:07.670642+00:00",
+        "display": "once in 6m"
+      },
+      "schedule_display": "once in 6m",
+      "repeat": {
+        "times": 1,
+        "completed": 1
+      },
+      "enabled": false,
+      "state": "completed",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-09-28T21:29:07.670699+00:00",
+      "next_run_at": null,
+      "last_run_at": "2026-09-28T21:38:20.132630+00:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "failure_streak": 0,
+      "deliver": "origin",
+      "origin": {
+        "platform": "telegram",
+        "chat_id": "-1004376120571",
+        "chat_name": "گروه تیم",
+        "thread_id": null,
+        "user_id": "100651143",
+        "scope_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "run_claim": null,
+      "fire_claim": null
+    },
+    {
+      "id": "97d00403ed81",
+      "name": "نظر در discussions/730 — مرحله ۲",
+      "prompt": "Task: post my own opinion as a new comment on GitHub discussion #730 of repo `asgarimehdi/h-dashboard` (https://github.com/asgarimehdi/h-dashboard/discussions/730). No user approval is needed — publish directly, then report.\n\nContext: an earlier job already posted one comment on this discussion. Yours is the SECOND such opinion. You must react to whatever the LATEST published comment on #730 is at this moment — that may well be the previous opinion comment (posted under login `hailyn3`, signed \"— نظر صدف (دستیار)\"). Either way, react to the newest comment, and do NOT repeat the same points as that previous comment: add a genuinely new angle, a counterpoint, a risk, or a concrete next step.\n\nSteps:\n1. Load the skill with skill_view(name=\"github\") and read its linked file references/discussions.md — it has the exact GraphQL commands, IDs, and known pitfalls for creating discussion comments.\n2. Read discussion 730 (comments ordered by creation) and identify the LATEST comment. Note its author login and first line.\n3. Write a substantive opinion about that specific comment: 3-6 sentences minimum, concrete, no filler. Match the comment's language: Persian → Persian, English → English. Start with the signature line \"— نظر صدف (دستیار — دومین دیدگاه)\".\n4. Post in the SAME discussion using mutation `addDiscussionComment` (NOT `createDiscussionComment` — that name does not exist) with the discussion global ID from `discussion { id }`. Write the body to a file under /home/runner/.hermes/cache/scratch/ and pass it as `-F body=@/path/file.md`. Auth: `gh` CLI logged in as `hailyn3`, scope `write:discussion`.\n5. Verify with a fresh read: comment count increased, your text is the last comment. Never claim success without this read.\n\nFinal response: the comment URL, which comment you reacted to (login + first line), and a 1-2 line summary of your opinion.",
+      "skills": [
+        "github"
+      ],
+      "skill": "github",
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "once",
+        "run_at": "2026-09-28T21:45:07.703101+00:00",
+        "display": "once in 16m"
+      },
+      "schedule_display": "once in 16m",
+      "repeat": {
+        "times": 1,
+        "completed": 1
+      },
+      "enabled": false,
+      "state": "completed",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-09-28T21:29:07.703155+00:00",
+      "next_run_at": null,
+      "last_run_at": "2026-09-28T21:48:21.417189+00:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "failure_streak": 0,
+      "deliver": "origin",
+      "origin": {
+        "platform": "telegram",
+        "chat_id": "-1004376120571",
+        "chat_name": "گروه تیم",
+        "thread_id": null,
+        "user_id": "100651143",
+        "scope_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "run_claim": null,
+      "fire_claim": null
+    }
+  ],
+  "updated_at": "2026-09-28T21:48:21.418466+00:00"
 }
