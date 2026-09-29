@@ -18,6 +18,10 @@ Pitfalls and procedures for everyday git operations that fall outside standard
 ## Standing Rules
 
 - Always check `git status` and `git remote -v` before staging or pushing.
+- Stage explicitly by path (`git add <files>`), never `git add -A`/`git add .` —
+  a working tree routinely carries unrelated pre-existing changes (stale
+  lockfiles, scratch edits) that must stay out of the commit; commit only the
+  files belonging to the current change.
 - Configure per-repo identity before first commit if global config is absent.
 - Never assume a branch name — read it from `git branch --show-current`.
 - Ahead/behind counts in `git status -sb` are measured against the *configured*
@@ -63,6 +67,15 @@ git config user.name "username"
 ```
 
 Detect from `gh auth status` or set manually.
+
+### Never chain `git commit && git push` in one command
+
+Every write command goes through an approval prompt with a finite consent
+window. Chained as one unit, commit and push are approved or refused
+together: if consent doesn't arrive in time the whole command is blocked and
+**no commit exists either**, losing the work from the conversation's point of
+view. Run `git commit …` and `git push …` as two separate calls — a delayed or
+refused push then leaves the commit safely on the branch for a retry.
 
 ### Fetching an upstream branch without touching remotes
 

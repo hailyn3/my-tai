@@ -13,6 +13,8 @@ patterns.
 | `assertSee`/`assertEquals` fails with a factory-generated value as actual | Assertion hardcodes data the factory randomizes (names, coords) | Assert the created model's real attribute |
 | Count/feature query returns 0 with rows clearly present | Randomized data falls outside a fixed filter window (bbox, range) | Pin values inside the window at creation |
 | Guard/regression test passes on first run | Not yet proven — it has never observed its own failure | Mutate the implementation to a no-op, watch the guard fail, revert |
+| Absence-scenario guard ("user without X") green while the bug reproduces by hand | Fixture created the precondition it claims to lack — a factory `configure()`/`afterMaking()` hook auto-created the FK-linked rows | Null the FK / detach the relation in the test, assert the precondition, confirm RED before trusting green |
+| `SQLSTATE 08P01` / `bind message supplies N parameters, but prepared statement requires M` | A placeholder occurs N times per id in the SQL (two `IN (?)` subqueries in one SELECT) but bindings were passed once per id | Repeat bindings per occurrence — `array_merge($ids, $ids)` for two occurrences — or count placeholders, not ids |
 | Local green, remote red | Base moved under the PR (merge-ref CI) or CI-only flags (`--parallel`, `--coverage`, runtime version) | Sync base first, then reproduce with CI's flags |
 
 ## Flake confirmation loop

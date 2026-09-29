@@ -105,7 +105,58 @@
       "workdir": null,
       "run_claim": null,
       "fire_claim": null
+    },
+    {
+      "id": "eac184c5df10",
+      "name": "Review comments on new PR discussions",
+      "prompt": "You are صدف (Sadaf), reviewing GitHub Discussions for the h-dashboard project. The user has PRE-APPROVED publishing your comments — post them without asking for confirmation.\n\nTASK: On every GitHub Discussion opened in the LAST 60 MINUTES in the repository `asgarimehdi/h-dashboard`, write and PUBLISH a careful, detailed review comment (in Persian), then report back a summary.\n\nCONTEXT / ENVIRONMENT:\n- Working directory: /home/runner/h-dashboard (a clone of the fork; branch `sadaf`). Read /home/runner/h-dashboard/AGENTS.md first and follow it.\n- GitHub CLI `gh` is authenticated as user `hailyn3` (token has `repo` + `write:discussion` scopes). The GitHub MCP server is BROKEN (auth error) — do NOT use it; use `gh` CLI / `gh api graphql` instead.\n- Discussions #749–#752 were opened recently by صدف itself, one per open PR: #746 (dashboard empty-scope guard), #745 (composer verify + hooks, Plan 33), #747 (by_day daily window, issue #736), #748 (ticket chart 30 newest days, issue #734). Others may have opened discussions in the meantime — include ANY discussion created within the last 60 minutes whose title/body links to a PR or asks for review (skip purely off-topic ones, but mention them in the summary).\n\nSTEPS:\n1. List recent discussions:\n   gh api graphql -f query='query { repository(owner:\"asgarimehdi\", name:\"h-dashboard\") { discussions(first: 25, orderBy: {field: CREATED_AT, direction: DESC}) { nodes { id number title body createdAt url } } } }'\n   Keep those with createdAt within the last 60 minutes.\n2. For EACH such discussion, do a real, careful review before writing:\n   - Extract the PR number it references (e.g. \"PR #746\"). Fetch it: `gh pr view <N> --repo asgarimehdi/h-dashboard --json title,body,files,additions,deletions,baseRefName,headRefName` and the diff: `gh pr diff <N> --repo asgarimehdi/h-dashboard`.\n   - Read the linked issue(s) mentioned in the PR body: `gh issue view <N> --repo asgarimehdi/h-dashboard`.\n   - If needed, read the actual changed files locally in /home/runner/h-dashboard (the local `sadaf` branch equals PR #746's head; for other PRs, reason from the diff).\n   - Also read the discussion's existing comments: gh api graphql with `comments(first:20){nodes{author{login} body createdAt}}` on the discussion.\n   Base your opinion on concrete evidence: correctness of the approach, edge cases, test coverage, security (SQL binding vs interpolation), performance/cache implications, conflicts with other open PRs touching the same files (e.g. #746 and #748 both touch resources/views/livewire/dashboard.blade.php), and merge-readiness.\n3. Write a substantial Persian review comment for each discussion (roughly 150–400 words): what the PR does, what you verified in the code/diff, concrete strengths, concrete risks or gaps (with file/line references), specific suggestions, and a clear verdict (آمادهٔ merge / نیاز به اصلاح / نیاز به بحث بیشتر). Be honest and critical — do not rubber-stamp. Do not invent facts: everything you claim must come from the diff/issue/code you actually read.\n4. PUBLISH each comment:\n   gh api graphql -f query='mutation($id: ID!, $body: String!) { addDiscussionComment(input: {discussionId: $id, body: $body}) { comment { url } } }' -F id='<discussion_node_id>' -F body='<comment markdown>'\n   (Write each comment to a temp file under /home/runner/.hermes/cache/scratch/ and pass it safely — mind shell quoting; prefer `gh api graphql -F body=@file` style or a Python script using subprocess if quoting gets tricky.)\n5. Final response (delivered to the user's Telegram): a list of every discussion URL you commented on, one line each with your verdict, plus a one-line note of anything you deliberately skipped.\n\nDo not merge, approve, or close anything. Publishing discussion comments is the ONLY write action allowed, and it is pre-approved.",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "once",
+        "run_at": "2026-09-29T20:57:06.887106+00:00",
+        "display": "once in 20m"
+      },
+      "schedule_display": "once in 20m",
+      "repeat": {
+        "times": 1,
+        "completed": 1
+      },
+      "enabled": false,
+      "state": "completed",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-09-29T20:37:06.887160+00:00",
+      "next_run_at": null,
+      "last_run_at": "2026-09-29T21:18:56.851502+00:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "failure_streak": 0,
+      "deliver": "origin",
+      "origin": {
+        "platform": "telegram",
+        "chat_id": "100651143",
+        "chat_name": "M A",
+        "thread_id": null,
+        "user_id": "100651143",
+        "scope_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "run_claim": null,
+      "fire_claim": null
     }
   ],
-  "updated_at": "2026-09-28T21:48:21.418466+00:00"
+  "updated_at": "2026-09-29T21:18:56.855207+00:00"
 }

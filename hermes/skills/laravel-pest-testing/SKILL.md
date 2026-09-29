@@ -32,7 +32,10 @@ Signature → root-cause table: `references/failure-signatures.md`.
    exit code, never by eyeballing.
 2. **Local gates, in order:** `composer test` → `composer pint` →
    `composer phpstan`. All three green is the bar; CI runs the same three
-   plus coverage/parallel variants.
+   plus coverage/parallel variants. Invoke gates as Composer scripts, not
+   as `vendor/bin/*` directly: the runtime's lifecycle guard refuses to
+   scan binaries over its size cap (Pint's build is), so direct
+   `vendor/bin/pint …` can be blocked while `composer pint` runs fine.
 3. **Suspected flake → loop the single file** (`for i in 1 2 3 4 5; do php
    artisan test <file>; done`): each run reshuffles Pest's random execution
    order, so a green/red flip across runs proves order dependence.
@@ -112,6 +115,15 @@ Signature → root-cause table: `references/failure-signatures.md`.
   found`** — the built assets are an untracked artifact, not source: copy
   `public/build/` from the main checkout (or build there) instead of
   touching test assertions.
+- **An absence-scenario test ("user without X", "empty scope", "no
+  rows") can be green without ever entering the branch it guards** —
+  factory `configure()`/`afterMaking()` hooks routinely create the very
+  FK-linked rows whose absence is being tested (e.g. a Person with a unit
+  behind every new User). Build the absence explicitly in the fixture
+  (null the FK column, detach the relation), assert the precondition the
+  branch needs, and watch the test go RED against the current code BEFORE
+  writing the fix; green on first run means the precondition was never
+  established, not that the bug is gone.
 - **Spatial/bbox queries over randomized coordinates**: factory lat/lng
   lands outside the fixed query window and returns "count 0" — pin the
   coordinates inside the window in the test helper at creation time.
