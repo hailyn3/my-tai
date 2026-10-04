@@ -2,13 +2,13 @@ name: sadaf
 
 on:
   schedule:
-    - cron: '0 */8 * * *'
+    - cron: '0 */7 * * *'
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 360
+    timeout-minutes: 300
     env:
       REPO_ORIGIN: https://github.com/hailyn3/h-dashboard.git
       WF_NAME: sadaf
@@ -232,7 +232,7 @@ jobs:
           mkdir -p /home/runner/.hermes
           H="${GITHUB_WORKSPACE:-.}/hermes"
           D=/home/runner/.hermes
-          for item in memories skills cron hooks platforms sessions kanban; do
+          for item in memories skills cron hooks platforms sessions kanban plugins; do
             [ -d "$H/$item" ] && cp -r "$H/$item" "$D/"
           done
           for f in SOUL.md config.yaml kanban.db channel_directory.json \
