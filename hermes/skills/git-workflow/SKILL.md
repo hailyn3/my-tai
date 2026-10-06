@@ -92,6 +92,23 @@ git update-ref -d refs/tmp/<branch>   # clean up when done
 Temporary refs are not part of `git remote` config, so nothing about the
 repository's remote setup changes.
 
+### Use explicit source:destination refspecs when fetching or pushing by URL
+
+`git fetch <url> <branch>` and `git push <remote> <branch>` with shorthand refs
+can write to unexpected places (FETCH_HEAD only, a stray local branch named
+`origin/beta`, or a same-named ref on the remote). Always give the full
+`source:destination` pair:
+
+```bash
+git fetch <url> beta:refs/remotes/origin/beta   # or refs/tmp/beta
+git push origin origin/beta:beta                # local ref -> remote ref
+```
+
+Side effect to know: a bad push can leave stray refs on the remote itself —
+e.g. a fork carrying `refs/remotes/origin/beta`. `git ls-remote` will list them
+alongside real heads. Judge branch state only by the real heads (`beta`,
+`sadaf`), never by `refs/remotes/*` entries.
+
 ### Catching up a branch that is behind its remote counterpart
 
 Pushes get rejected with `tip of your current branch is behind its remote
